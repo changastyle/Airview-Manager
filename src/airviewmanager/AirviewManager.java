@@ -5,12 +5,19 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import javax.swing.JOptionPane;
+import model.Ubiquiti;
 
 public class AirviewManager
 {
     public static void main(String[] args) throws JSchException
     {
-        JSch jsch=new JSch();
+        for(Ubiquiti ubiquiti : daos.UbiquitisDAO.findAll())
+        {
+            System.out.println(ubiquiti);
+        }
+        
+        
+        /*JSch jsch=new JSch();
         
         String host = null;
         String usuario = null;
@@ -21,7 +28,7 @@ public class AirviewManager
         }
         else
         {
-            host=JOptionPane.showInputDialog("Enter username@hostname",/*System.getProperty("user.name")*/ "ubnt"+"@192.168.5.145"); 
+            host=JOptionPane.showInputDialog("Enter username@hostname","ubnt"+"@192.168.5.145"); 
             String split[] = host.split("@");
             usuario = split[0] ;
             ip= split[1];
@@ -45,7 +52,7 @@ public class AirviewManager
             channel.setOutputStream(System.out);
             channel.connect(3*1000);
             
-        }
+        }*/
     }
     
 }
