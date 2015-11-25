@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Ubiquiti
 {
     private String direccionIP;
@@ -9,6 +11,10 @@ public class Ubiquiti
 
     public Ubiquiti()
     {
+        this.direccionIP = "";
+        this.nombreUbiquiti =  "";
+        this.usuario = "";
+        this.password = "";
     }
 
     public Ubiquiti(String direccionIP, String nombreUbiquiti, String usuario, String password)
@@ -19,7 +25,7 @@ public class Ubiquiti
         this.password = password;
     }
 
-    //<editor-fold desc="GYS">
+    //<editor-fold desc="GYS:">
     public String getDireccionIP()
     {
         return direccionIP;
@@ -66,6 +72,4 @@ public class Ubiquiti
     {
         return "Ubiquiti{" + "direccionIP=" + direccionIP + ", nombreUbiquiti=" + nombreUbiquiti + ", usuario=" + usuario + ", password=" + password + '}';
     }
-
-    
 }
