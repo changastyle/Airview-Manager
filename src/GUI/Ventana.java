@@ -34,11 +34,10 @@ public class Ventana extends Application
 {
  
     private TableView<model.Ubiquiti> table = new TableView<model.Ubiquiti>();
-    /*ObservableList<model.Ubiquiti> data = FXCollections.observableArrayList();
-    data.*/
-   /* static ArrayList<model.Ubiquiti> model = new ArrayList<Ubiquiti>();*/
+    ObservableList<model.Ubiquiti> data = FXCollections.observableArrayList();
+    static ArrayList<model.Ubiquiti> model = new ArrayList<Ubiquiti>();
     
-   /* 
+
     public static void main(String[] args) 
     {
         for(Ubiquiti ubiquiti : daos.UbiquitisDAO.findAll())
@@ -47,7 +46,7 @@ public class Ventana extends Application
             System.out.println(ubiquiti);
         }
         launch(args);
-    }*/
+    }
  
     @Override
     public void start(Stage stage)
@@ -94,77 +93,12 @@ public class Ventana extends Application
             Ubiquiti ubiquiti = table.getSelectionModel().getSelectedItem();  
             System.out.println("Abriendo: " + ubiquiti.getNombreUbiquiti() );
             
-            Channel canal = NETWORK.SSH.sshCMD(ubiquiti.getDireccionIP(), 22 , ubiquiti.getUsuario(), ubiquiti.getPassword());
-
-            try
-            {   
-                InputStream inputStream = canal.getInputStream();
-                OutputStream output = canal.getOutputStream();
-                
-                /*String cadena = "";
-                while(true)
-                {
-                    char caracter = (char) inputStream.read();
-                    cadena += String.valueOf(caracter);
-                    
-                    if(caracter == '#' || caracter == '$')
-                    {
-                        System.out.println( cadena );
-                        break;
-                    }
-                }*/
-
-                /*((ChannelExec) canal).setCommand("ls");*/
-                canal.connect();
-                
-                byte[] tmp=new byte[1024];
-                while(true)
-                {
-                    System.out.println("input stream: " + inputStream);
-                  while(inputStream.available() > 0)
-                  {
-                    int i=inputStream.read(tmp, 0, 1024);
-                    if(i<0)break;
-                    System.out.print(new String(tmp, 0, i));
-                  }
-                  if(canal.isClosed())
-                  {
-                    if(inputStream.available()>0) continue; 
-                    System.out.println("exit-status: "+canal.getExitStatus());
-                    break;
-                  }
-                }
-                canal.disconnect();
-                
-              }
-              catch(Exception e)
-              {
-                System.out.println(e);
-              }
-                /*while(true)
-                {
-                    char caracter = (char) inputStream.read();
-                    cadena += String.valueOf(caracter);
-                    
-                    if(caracter == '#' || caracter == '$')
-                    {
-                        System.out.println( cadena );
-                        break;
-                    }
-                }*/
-                //InputStream input = canal.getInputStream();
-                //canal.setOutputStream(System.out);
-                /*
-                canal.setOutputStream(System.out);
-                String comando = "airview start";*/
-             /*catch (IOException ex)
-            {
-                ex.printStackTrace();
-                System.out.println("ERROR: SSH2");
-            }*/
+            Channel canal = NETWORK.SSH.sshExec(ubiquiti.getDireccionIP(), 22 , ubiquiti.getUsuario(), ubiquiti.getPassword());
+            NETWORK.SSH.enviarComando(canal, "/bin/sh /sbin/airview service");
+            System.out.println("canal: " + canal);
             
+            CMD.Consola.executar("java -jar airview.jar ubnt://"+ubiquiti.getDireccionIP()+":18888");
             
-
         });
         
         final VBox vbox = new VBox();

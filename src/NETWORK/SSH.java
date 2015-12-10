@@ -96,10 +96,11 @@ public class SSH
     {
         String salida = "";
         
+        System.out.println("input.available():" + input.available());
         while(input.available() > 0)
         {
             int i = input.read();
-            System.out.println("i:" + i);
+            //System.out.println("i:" + i);
             if(i<0)
             {
                 break;
@@ -107,7 +108,7 @@ public class SSH
             else
             {
                 char c = (char) i;
-                System.out.println(""+ c);
+               //System.out.println(""+ c);
                 salida += "" + c; 
             }
         }
