@@ -1,0 +1,3 @@
+[{'direccionIP':'192.168.5.145', 'nombreUbiquiti': 'Ubi de pruebas', 'usuario': 'ubnt' , 'password': 'ubnt'},
+    {'direccionIP':'192.168.5.201', 'nombreUbiquiti': 'ubi2', 'usuario': 'root' , 'password': 'tecacc'},
+    {'direccionIP':'192.168.5.230', 'nombreUbiquiti': 'rocket Tecno', 'usuario': 'root' , 'password': 'tecacc'}]
